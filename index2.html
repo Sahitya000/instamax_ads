@@ -15,6 +15,8 @@
             text-align: center;
             padding: 20px;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         .container {
             max-width: 500px;
@@ -26,6 +28,7 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             position: relative;
             overflow: hidden;
+            flex: 1;
         }
         .container::before {
             content: '';
@@ -199,14 +202,6 @@
             cursor: pointer;
             flex-shrink: 0;
         }
-        @media (max-width: 400px) {
-            .screenshots img {
-                width: 120px;
-            }
-        }
-        .screenshots img:hover {
-            transform: scale(1.08);
-        }
         .features {
             text-align: left;
             margin-top: 15px;
@@ -239,6 +234,68 @@
             font-weight: bold;
         }
 
+        /* Enhanced Footer Styles */
+        footer {
+            margin-top: 20px;
+            padding: 15px 0;
+            color: #8e8e8e;
+            font-size: clamp(11px, 2.5vw, 12px);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: clamp(10px, 3vw, 15px);
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+        .footer-links a {
+            color: #8e8e8e;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .footer-links a:hover {
+            color: #dc2743;
+        }
+        .copyright {
+            margin-top: 10px;
+            font-size: clamp(10px, 2.5vw, 11px);
+            line-height: 1.4;
+            padding: 0 10px;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 3vw, 15px);
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .social-icons a {
+            color: white;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
+            width: clamp(28px, 7vw, 32px);
+            height: clamp(28px, 7vw, 32px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(220, 39, 67, 0.2);
+            font-size: clamp(12px, 3vw, 14px);
+        }
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
+        }
+
         /* Responsive adjustments */
         @media (max-width: 600px) {
             .container {
@@ -258,6 +315,9 @@
             }
             .info-item {
                 padding: 8px;
+            }
+            .screenshots img {
+                width: 130px;
             }
         }
 
@@ -283,11 +343,40 @@
                 padding: 12px;
                 margin: 10px 0;
             }
+            .screenshots img {
+                width: 110px;
+            }
         }
 
         @media (max-width: 350px) {
             .info {
                 grid-template-columns: 1fr;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .screenshots img {
+                width: 100px;
+            }
+        }
+
+        /* Extra small devices (phones, 320px and below) */
+        @media (max-width: 320px) {
+            .container {
+                padding: 12px 8px;
+            }
+            .header img {
+                width: 40px;
+                height: 40px;
+            }
+            .screenshots img {
+                width: 90px;
+            }
+            .social-icons a {
+                width: 26px;
+                height: 26px;
+                font-size: 12px;
             }
         }
     </style>
@@ -352,6 +441,25 @@
             <p>Advanced Privacy Controls</p>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+            <a href="#">About Us</a>
+        </div>
+        <div class="social-icons">
+            <a href="#" aria-label="Telegram">T</a>
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="YouTube">YT</a>
+        </div>
+        <div class="copyright">
+            © 2024 SkMods. All rights reserved.<br>
+            Instagram is a trademark of Meta Platforms, Inc.
+        </div>
+    </footer>
 
     <script>
         function toggleSubButtons() {
