@@ -6,7 +6,7 @@
   <title>Loading...</title>
   <meta name="description" content="Download APK safely and fast. Verified by SKMods.">
 
-  <!-- Open Graph Tags for Social Share -->
+  <!-- Open Graph Tags -->
   <meta property="og:title" content="Loading...">
   <meta property="og:description" content="Download APK safely and fast. Verified by SKMods.">
   <meta property="og:image" content="">
@@ -19,16 +19,45 @@
 
   <style>
     body {
-      margin: 0; 
+      margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f5f5f5;
-      display: flex; 
-      justify-content: center; 
-      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       min-height: 100vh;
       touch-action: pan-y;
     }
+    
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: linear-gradient(90deg, #4CAF50, #45a049);
+      color: white;
+      padding: 15px 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      position: absolute;
+      left: 15px;
+      font-size: 16px;
+    }
+    
+    /* Main Card */
     .card {
       background: #fff;
       padding: 20px;
@@ -37,10 +66,11 @@
       max-width: 480px;
       width: 90%;
       animation: fadeIn 0.5s ease-in;
-      margin-top: 20px;
+      margin-top: 80px;
+      margin-bottom: 70px;
     }
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); } 
+      from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
@@ -59,9 +89,9 @@
     }
     .circular-progress {
       position: absolute;
-      top: 0; 
+      top: 0;
       left: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
       border-radius: 50%;
       background: conic-gradient(#4CAF50 0deg, #e0e0e0 0deg);
@@ -72,7 +102,7 @@
     }
     .app-icon {
       position: absolute;
-      top: 50%; 
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
@@ -84,41 +114,41 @@
     }
     .app-info h1 {
       font-size: clamp(16px, 4vw, 20px);
-      margin: 0; 
+      margin: 0;
       color: #333;
     }
     .app-info p {
-      margin: 2px 0; 
-      font-size: clamp(12px, 2.5vw, 14px); 
+      margin: 2px 0;
+      font-size: clamp(12px, 2.5vw, 14px);
       color: #666;
     }
     .details {
-      font-size: clamp(11px, 2vw, 13px); 
+      font-size: clamp(11px, 2vw, 13px);
       color: #888;
       margin-top: 4px;
     }
 
     .ads-container {
-      margin: 15px auto; 
-      width: 100%; 
+      margin: 15px auto;
+      width: 100%;
       max-width: 350px;
     }
     .ads-container iframe {
-      width: 100%; 
-      height: 200px; 
+      width: 100%;
+      height: 200px;
       border: none;
       background: transparent;
     }
 
     #downloadBtn {
       background: linear-gradient(90deg, #4CAF50, #45a049);
-      color: #fff; 
-      border: none; 
+      color: #fff;
+      border: none;
       border-radius: 8px;
-      padding: 12px; 
+      padding: 12px;
       width: 100%;
       font-size: clamp(14px, 3.5vw, 16px);
-      cursor: pointer; 
+      cursor: pointer;
       margin-top: 10px;
       transition: transform 0.2s;
       font-weight: 600;
@@ -130,13 +160,13 @@
       transform: scale(0.98);
     }
     .info {
-      font-size: clamp(10px, 2vw, 12px); 
-      color: #888; 
-      margin-top: 10px; 
+      font-size: clamp(10px, 2vw, 12px);
+      color: #888;
+      margin-top: 10px;
       text-align: center;
     }
 
-    /* Image Gallery Styles */
+    /* Image Gallery */
     .image-gallery {
       margin-top: 20px;
       width: 100%;
@@ -185,12 +215,32 @@
       background: #4CAF50;
     }
 
+    /* Footer */
+    .footer {
+      width: 100%;
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      position: fixed;
+      bottom: 0;
+      z-index: 1000;
+    }
+    .footer p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
     @media (max-width: 480px) {
       .ads-container iframe {
         height: 150px;
       }
       .circular-wrapper {
-        width: 25vw; 
+        width: 25vw;
         max-width: 70px;
       }
       .gallery-image {
@@ -200,6 +250,13 @@
   </style>
 </head>
 <body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/">Home</a>
+    <h1>SKMods</h1>
+  </nav>
+
+  <!-- Main Card -->
   <div class="card">
     <div class="top-section">
       <div class="circular-wrapper">
@@ -217,7 +274,7 @@
       </div>
     </div>
 
-    <!-- Adsterra Ad Placement -->
+    <!-- Ad Container -->
     <div class="ads-container">
       <script type='text/javascript' src='//derideskid.com/35/41/e9/3541e932cb25237e89e4d40ce6461dff.js'></script>
     </div>
@@ -227,48 +284,90 @@
 
     <!-- Image Gallery -->
     <div class="image-gallery" id="imageGallery">
-      <div class="gallery-container" id="galleryContainer">
-        <!-- Slides will be added dynamically -->
-      </div>
-      <div class="gallery-nav" id="galleryNav">
-        <!-- Navigation dots will be added dynamically -->
-      </div>
+      <div class="gallery-container" id="galleryContainer"></div>
+      <div class="gallery-nav" id="galleryNav"></div>
     </div>
   </div>
 
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2023 SKMods. All rights reserved.</p>
+    <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+  </footer>
+
   <script>
+    // Configuration
     let clicked = false;
-    let adLink = "", apkLink = "", buttonTextSecond = "";
     let currentSlide = 0;
     let autoScrollInterval;
     let startX = 0;
     let isDragging = false;
-    const galleryImages = [
-      "https://via.placeholder.com/300x150?text=App+Screenshot+1",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+2",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+3",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+4",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+5",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+6",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+7",
-      "https://via.placeholder.com/300x150?text=App+Screenshot+8"
-    ];
+    
+    // Load configuration files
+    Promise.all([
+      fetch("strings.json").then(r => r.json()),
+      fetch("ads.json").then(r => r.json()),
+      fetch("gallery.json").then(r => r.json())
+    ])
+    .then(([strings, ads, gallery]) => {
+      // Update page content
+      updatePageContent(strings);
+      initGallery(gallery.images);
+      setupDownloadButton(ads, strings);
+    })
+    .catch(error => {
+      console.error("Error loading configuration:", error);
+      // Fallback to default gallery if config fails
+      initGallery([
+        "https://via.placeholder.com/300x150?text=Screenshot+1",
+        "https://via.placeholder.com/300x150?text=Screenshot+2",
+        "https://via.placeholder.com/300x150?text=Screenshot+3",
+        "https://via.placeholder.com/300x150?text=Screenshot+4"
+      ]);
+    });
 
-    // Initialize gallery with touch support
-    function initGallery() {
+    // Update page content from strings.json
+    function updatePageContent(strings) {
+      document.getElementById("appName").textContent = strings.appName || "App Name";
+      document.title = (strings.appName || "App") + " - Download";
+      
+      document.querySelector('meta[name="description"]').content = strings.infoText || "Download APK safely and fast";
+      document.querySelector('meta[property="og:title"]').content = (strings.appName || "App") + " - Download";
+      document.querySelector('meta[property="og:description"]').content = strings.infoText || "Download APK safely and fast";
+      
+      document.getElementById("verifiedText").textContent = strings.verifiedText || "Verified by SKMods";
+      document.getElementById("details").innerHTML = `
+        Developer: ${strings.developer || "Unknown"}<br>
+        Version: ${strings.version || "1.0"} • ${strings.size || "10MB"}<br>
+        ${strings.downloads || "1000+ Downloads"}
+      `;
+      document.getElementById("downloadBtn").textContent = strings.buttonText || "Download";
+      document.getElementById("infoText").textContent = strings.infoText || "Download APK safely and fast";
+      
+      if (strings.appIcon) {
+        document.getElementById("appIcon").src = strings.appIcon;
+      }
+    }
+
+    // Initialize gallery
+    function initGallery(images) {
       const galleryContainer = document.getElementById('galleryContainer');
       const galleryNav = document.getElementById('galleryNav');
       const imageGallery = document.getElementById('imageGallery');
       
-      // Group images into slides (4 images per slide)
-      for (let i = 0; i < galleryImages.length; i += 4) {
+      // Clear existing content
+      galleryContainer.innerHTML = '';
+      galleryNav.innerHTML = '';
+      
+      // Group images into slides (4 per slide)
+      for (let i = 0; i < images.length; i += 4) {
         const slide = document.createElement('div');
         slide.className = 'gallery-slide';
         
-        // Add up to 4 images to this slide
-        for (let j = 0; j < 4 && (i + j) < galleryImages.length; j++) {
+        // Add images to slide
+        for (let j = 0; j < 4 && (i + j) < images.length; j++) {
           const img = document.createElement('img');
-          img.src = galleryImages[i + j];
+          img.src = images[i + j];
           img.className = 'gallery-image';
           img.alt = `App Screenshot ${i + j + 1}`;
           slide.appendChild(img);
@@ -280,38 +379,65 @@
         const dot = document.createElement('div');
         dot.className = 'gallery-dot';
         if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => {
-          goToSlide(i / 4);
-        });
+        dot.addEventListener('click', () => goToSlide(i / 4));
         galleryNav.appendChild(dot);
       }
       
-      // Touch event handlers
+      // Touch events
       imageGallery.addEventListener('touchstart', handleTouchStart, { passive: true });
       imageGallery.addEventListener('touchmove', handleTouchMove, { passive: false });
       imageGallery.addEventListener('touchend', handleTouchEnd);
       
-      // Mouse event handlers for desktop
+      // Mouse events
       imageGallery.addEventListener('mousedown', handleMouseDown);
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
       
-      // Start auto-scroll (slower - every 5 seconds)
+      // Start auto-scroll
       startAutoScroll();
     }
     
-    function startAutoScroll() {
-      // Clear existing interval if any
-      if (autoScrollInterval) clearInterval(autoScrollInterval);
+    // Setup download button functionality
+    function setupDownloadButton(ads, strings) {
+      const btn = document.getElementById("downloadBtn");
+      const circle = document.getElementById("circularProgress");
       
-      // Set new interval (5000ms = 5 seconds)
-      autoScrollInterval = setInterval(() => {
-        nextSlide();
-      }, 5000);
+      btn.addEventListener("click", () => {
+        if (!clicked) {
+          if (ads.adLink) window.open(ads.adLink, "_blank");
+          btn.textContent = strings.buttonTextSecond || "Continue Download";
+          clicked = true;
+        } else {
+          btn.style.display = "none";
+          circle.style.display = "block";
+          let progress = 0;
+          const interval = setInterval(() => {
+            progress++;
+            circle.style.background = `conic-gradient(#4CAF50 ${progress * 3.6}deg, #e0e0e0 0deg)`;
+            if (progress >= 100) {
+              clearInterval(interval);
+              setTimeout(() => { 
+                if (ads.apkLink) {
+                  window.location.href = ads.apkLink;
+                } else {
+                  btn.style.display = "block";
+                  circle.style.display = "none";
+                  alert("Download link not available");
+                }
+              }, 500);
+            }
+          }, 50);
+        }
+      });
+    }
+
+    // Gallery control functions
+    function startAutoScroll() {
+      if (autoScrollInterval) clearInterval(autoScrollInterval);
+      autoScrollInterval = setInterval(nextSlide, 5000);
     }
     
     function handleTouchStart(e) {
-      // Pause auto-scroll during interaction
       clearInterval(autoScrollInterval);
       startX = e.touches[0].clientX;
       isDragging = true;
@@ -324,18 +450,11 @@
       const x = e.touches[0].clientX;
       const diff = startX - x;
       
-      // Only allow horizontal drag
       if (Math.abs(diff) > 10) {
         const galleryContainer = document.getElementById('galleryContainer');
-        const slideWidth = 100 / Math.ceil(galleryImages.length / 4);
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
         const dragOffset = (diff / window.innerWidth) * 100;
-        
-        // Calculate the position with drag offset
-        let position = currentSlide * 100 + dragOffset;
-        
-        // Limit dragging to first and last slide
-        position = Math.max(position, 0);
-        position = Math.min(position, (Math.ceil(galleryImages.length / 4) - 1) * 100);
+        let position = Math.max(0, Math.min(currentSlide * 100 + dragOffset, (totalSlides - 1) * 100));
         
         galleryContainer.style.transition = 'none';
         galleryContainer.style.transform = `translateX(-${position}%)`;
@@ -349,23 +468,15 @@
       const endX = e.changedTouches[0].clientX;
       const diff = startX - endX;
       
-      // Determine if it's a swipe (threshold of 50px)
       if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          nextSlide(); // Swipe left
-        } else {
-          prevSlide(); // Swipe right
-        }
+        diff > 0 ? nextSlide() : prevSlide();
       } else {
-        // Not a swipe - return to current slide
         goToSlide(currentSlide);
       }
       
-      // Resume auto-scroll
       startAutoScroll();
     }
     
-    // Mouse event handlers (similar to touch)
     function handleMouseDown(e) {
       clearInterval(autoScrollInterval);
       startX = e.clientX;
@@ -381,12 +492,9 @@
       
       if (Math.abs(diff) > 10) {
         const galleryContainer = document.getElementById('galleryContainer');
-        const slideWidth = 100 / Math.ceil(galleryImages.length / 4);
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
         const dragOffset = (diff / window.innerWidth) * 100;
-        
-        let position = currentSlide * 100 + dragOffset;
-        position = Math.max(position, 0);
-        position = Math.min(position, (Math.ceil(galleryImages.length / 4) - 1) * 100);
+        let position = Math.max(0, Math.min(currentSlide * 100 + dragOffset, (totalSlides - 1) * 100));
         
         galleryContainer.style.transition = 'none';
         galleryContainer.style.transform = `translateX(-${position}%)`;
@@ -401,11 +509,7 @@
       const diff = startX - endX;
       
       if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-          nextSlide();
-        } else {
-          prevSlide();
-        }
+        diff > 0 ? nextSlide() : prevSlide();
       } else {
         goToSlide(currentSlide);
       }
@@ -414,13 +518,13 @@
     }
     
     function nextSlide() {
-      const totalSlides = Math.ceil(galleryImages.length / 4);
+      const totalSlides = document.querySelectorAll('.gallery-slide').length;
       currentSlide = (currentSlide + 1) % totalSlides;
       updateGallery();
     }
     
     function prevSlide() {
-      const totalSlides = Math.ceil(galleryImages.length / 4);
+      const totalSlides = document.querySelectorAll('.gallery-slide').length;
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       updateGallery();
     }
@@ -434,102 +538,13 @@
       const galleryContainer = document.getElementById('galleryContainer');
       const dots = document.querySelectorAll('.gallery-dot');
       
-      // Re-enable transition
       galleryContainer.style.transition = 'transform 0.8s ease';
       galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
       
       dots.forEach((dot, index) => {
-        if (index === currentSlide) {
-          dot.classList.add('active');
-        } else {
-          dot.classList.remove('active');
-        }
+        dot.classList.toggle('active', index === currentSlide);
       });
     }
-
-    // Add error handling for the fetch requests
-    Promise.all([
-      fetch("strings.json").then(response => {
-        if (!response.ok) throw new Error("Failed to load strings");
-        return response.json();
-      }),
-      fetch("ads.json").then(response => {
-        if (!response.ok) throw new Error("Failed to load ads");
-        return response.json();
-      })
-    ])
-    .then(([strings, ads]) => {
-      // Update the page content
-      document.getElementById("appName").textContent = strings.appName || "App Name";
-      document.title = (strings.appName || "App") + " - Download";
-      
-      const metaDescription = strings.infoText || "Download APK safely and fast";
-      document.querySelector('meta[name="description"]').setAttribute("content", metaDescription);
-      document.querySelector('meta[property="og:title"]').setAttribute("content", (strings.appName || "App") + " - Download");
-      document.querySelector('meta[property="og:description"]').setAttribute("content", metaDescription);
-      document.querySelector('meta[property="og:image"]').setAttribute("content", strings.appIcon || "");
-
-      document.getElementById("verifiedText").textContent = strings.verifiedText || "Verified by SKMods";
-      
-      if (strings.developer && strings.version && strings.size && strings.downloads) {
-        document.getElementById("details").innerHTML =
-          `Developer: ${strings.developer}<br>Version: ${strings.version} • ${strings.size}<br>${strings.downloads}`;
-      }
-      
-      document.getElementById("downloadBtn").textContent = strings.buttonText || "Download";
-      document.getElementById("infoText").textContent = strings.infoText || "Download APK safely and fast";
-      
-      if (strings.appIcon) {
-        document.getElementById("appIcon").src = strings.appIcon;
-      }
-
-      adLink = ads.adLink || "#";
-      apkLink = ads.apkLink || "#";
-      buttonTextSecond = strings.buttonTextSecond || "Continue Download";
-      
-      // Initialize gallery after content is loaded
-      initGallery();
-    })
-    .catch(error => {
-      console.error("Error loading data:", error);
-      // Initialize gallery even if other content fails to load
-      initGallery();
-    });
-
-    const btn = document.getElementById("downloadBtn");
-    const circle = document.getElementById("circularProgress");
-
-    btn.addEventListener("click", () => {
-      if (!clicked) {
-        // Open ad link in new tab
-        if (adLink && adLink !== "#") {
-          window.open(adLink, "_blank");
-        }
-        btn.textContent = buttonTextSecond || "Continue Download";
-        clicked = true;
-      } else {
-        btn.style.display = "none";
-        circle.style.display = "block";
-        let progress = 0;
-        const interval = setInterval(() => {
-          progress++;
-          circle.style.background = `conic-gradient(#4CAF50 ${progress * 3.6}deg, #e0e0e0 0deg)`;
-          if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => { 
-              if (apkLink && apkLink !== "#") {
-                window.location.href = apkLink;
-              } else {
-                // Fallback if no apkLink is provided
-                btn.style.display = "block";
-                circle.style.display = "none";
-                alert("Download link not available");
-              }
-            }, 500);
-          }
-        }, 50);
-      }
-    });
   </script>
 </body>
 </html>
