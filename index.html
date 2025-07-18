@@ -287,7 +287,7 @@
       background: var(--ig-pink);
     }
 
-    /* Image Preview Modal */
+    /* Full Size Image Preview */
     .image-preview {
       display: none;
       position: fixed;
@@ -295,7 +295,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.9);
+      background-color: rgba(0,0,0,0.95);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -310,29 +310,31 @@
     
     .preview-container {
       position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      text-align: center;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     .preview-image {
       max-width: 100%;
-      max-height: 80vh;
+      max-height: 100%;
+      object-fit: contain;
       display: block;
-      margin: 0 auto;
-      border-radius: 8px;
     }
     
     .close-preview {
       position: absolute;
-      top: -40px;
-      right: -10px;
+      top: 20px;
+      right: 20px;
       color: white;
       font-size: 35px;
       font-weight: bold;
       cursor: pointer;
       background: none;
       border: none;
+      z-index: 2001;
     }
     
     .preview-nav {
@@ -342,7 +344,8 @@
       justify-content: space-between;
       top: 50%;
       transform: translateY(-50%);
-      padding: 0 15px;
+      padding: 0 20px;
+      z-index: 2001;
     }
     
     .preview-nav button {
@@ -350,8 +353,8 @@
       border: none;
       color: white;
       font-size: 24px;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       cursor: pointer;
       display: flex;
@@ -393,6 +396,18 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
       }
+      
+      .close-preview {
+        top: 15px;
+        right: 15px;
+        font-size: 30px;
+      }
+      
+      .preview-nav button {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
     }
     
     @media (max-width: 480px) {
@@ -419,10 +434,16 @@
         padding-bottom: 100%;
       }
 
+      .close-preview {
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+      }
+      
       .preview-nav button {
         width: 35px;
         height: 35px;
-        font-size: 20px;
+        font-size: 18px;
       }
     }
     
@@ -437,12 +458,6 @@
       
       .navbar a {
         left: 10px;
-      }
-
-      .close-preview {
-        top: -35px;
-        right: 0;
-        font-size: 30px;
       }
     }
   </style>
@@ -487,7 +502,7 @@
     </div>
   </div>
 
-  <!-- Image Preview Modal -->
+  <!-- Full Size Image Preview -->
   <div class="image-preview" id="imagePreview">
     <div class="preview-container">
       <button class="close-preview">&times;</button>
@@ -532,10 +547,10 @@
       console.error("Error loading configuration:", error);
       // Fallback to default gallery if config fails
       const fallbackImages = [
-        "https://via.placeholder.com/300x150?text=Screenshot+1",
-        "https://via.placeholder.com/300x150?text=Screenshot+2",
-        "https://via.placeholder.com/300x150?text=Screenshot+3",
-        "https://via.placeholder.com/300x150?text=Screenshot+4"
+        "https://via.placeholder.com/800x400?text=Screenshot+1",
+        "https://via.placeholder.com/800x400?text=Screenshot+2",
+        "https://via.placeholder.com/800x400?text=Screenshot+3",
+        "https://via.placeholder.com/800x400?text=Screenshot+4"
       ];
       initGallery(fallbackImages);
       initImagePreview();
@@ -591,7 +606,9 @@
           imgContainer.className = 'gallery-image';
           
           const img = document.createElement('img');
-          img.src = images[i + j];
+          // Use thumbnail version for gallery (replace with your actual thumbnail URLs)
+          let thumbUrl = images[i + j].replace('800x400', '300x150');
+          img.src = thumbUrl;
           img.alt = `App Screenshot ${i + j + 1}`;
           img.loading = "lazy";
           img.dataset.index = i + j;
@@ -650,6 +667,7 @@
       
       // Image Preview Functions
       function showImagePreview(index) {
+        // Load the full size image
         previewImage.src = allGalleryImages[index];
         imagePreview.classList.add('active');
         document.body.style.overflow = 'hidden';
