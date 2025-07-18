@@ -26,7 +26,11 @@
       --ig-gradient: linear-gradient(45deg, var(--ig-purple), var(--ig-pink), var(--ig-orange), var(--ig-yellow));
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,7 +42,7 @@
       line-height: 1.5;
     }
     
-    /* Navbar */
+    /* Navbar with Instagram Gradient */
     .navbar {
       width: 100%;
       background: var(--ig-gradient);
@@ -52,24 +56,36 @@
       z-index: 1000;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-
+    
     @keyframes gradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-
-    .navbar h1 { margin: 0; font-size: clamp(16px, 4vw, 20px); font-weight: 600; }
-    .navbar a { color: white; text-decoration: none; position: absolute; left: 15px; font-size: clamp(14px, 3.5vw, 16px); }
-
+    
+    .navbar h1 {
+      margin: 0;
+      font-size: clamp(16px, 4vw, 20px);
+      font-weight: 600;
+    }
+    
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      position: absolute;
+      left: 15px;
+      font-size: clamp(14px, 3.5vw, 16px);
+    }
+    
+    /* Main Content */
     .content {
       padding: 15px;
       margin-top: 70px;
       margin-bottom: 70px;
+      width: 100%;
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
-      width: 100%;
     }
 
     .top-section {
@@ -80,91 +96,310 @@
       background: white;
       border-radius: 10px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      width: 100%;
     }
-
-    .circular-wrapper { position: relative; width: 60px; height: 60px; margin-right: 15px; }
-
+    
+    .circular-wrapper {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      margin-right: 15px;
+    }
+    
     .circular-progress {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
-      background: conic-gradient(var(--ig-purple) 0deg, var(--ig-pink) 90deg, var(--ig-orange) 180deg, var(--ig-yellow) 270deg, #e0e0e0 0deg);
-      display: none;
+      background: conic-gradient(
+        var(--ig-purple) 0deg,
+        var(--ig-pink) 90deg,
+        var(--ig-orange) 180deg,
+        var(--ig-yellow) 270deg,
+        #e0e0e0 0deg
+      );
+      transition: background 0.1s linear;
       padding: 4%;
+      box-sizing: border-box;
+      display: none;
     }
-
+    
     .app-icon {
-      position: absolute; top: 50%; left: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       object-fit: cover;
       background: #fff;
-      width: 80%; height: 80%;
+      width: 80%;
+      height: 80%;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+    
+    .app-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .app-info h1 {
+      margin: 0;
+      font-size: clamp(16px, 4vw, 18px);
+      color: #333;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .app-info p {
+      margin: 5px 0;
+      font-size: clamp(12px, 3vw, 14px);
+      color: #666;
+    }
+    
+    .details {
+      font-size: clamp(10px, 2.5vw, 12px);
+      color: #888;
+    }
 
-    .app-info h1 { font-size: clamp(16px, 4vw, 18px); color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .app-info p { font-size: clamp(12px, 3vw, 14px); color: #666; margin: 5px 0; }
-    .details { font-size: clamp(10px, 2.5vw, 12px); color: #888; }
+    .ads-container {
+      margin: 20px 0;
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .ads-container iframe {
+      width: 100%;
+      height: auto;
+      min-height: 150px;
+      border: none;
+      background: transparent;
+    }
 
-    .ads-container { margin: 20px 0; background: white; border-radius: 8px; overflow: hidden; }
-    .ads-container iframe { width: 100%; border: none; min-height: 150px; }
-
+    /* Instagram Gradient Button */
     #downloadBtn {
       background: var(--ig-gradient);
       background-size: 300% 300%;
       animation: gradient 8s ease infinite;
-      color: #fff; border: none; border-radius: 8px;
-      padding: 15px; width: 100%;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 15px;
+      width: 100%;
       font-size: clamp(14px, 3.5vw, 16px);
-      cursor: pointer; margin: 15px 0;
+      cursor: pointer;
+      margin: 15px 0;
+      transition: transform 0.2s;
       font-weight: 600;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
-    #downloadBtn:hover { transform: scale(1.02); }
-    #downloadBtn:active { transform: scale(0.98); }
-
-    .info { font-size: clamp(10px, 2.5vw, 12px); color: #888; text-align: center; }
-
-    .image-gallery { margin: 20px 0; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; }
-    .gallery-container { display: flex; transition: transform 0.8s ease; width: 100%; }
-    .gallery-slide { min-width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 0 5px; }
-
-    .gallery-image { border-radius: 8px; overflow: hidden; aspect-ratio: 9/16; min-height: 250px; cursor: pointer; }
-    .gallery-image img { width: 100%; height: 100%; object-fit: contain; }
-
-    .gallery-nav { display: flex; justify-content: center; margin-top: 15px; }
-    .gallery-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; margin: 0 5px; cursor: pointer; }
-    .gallery-dot.active { background: var(--ig-pink); }
-
-    .image-preview { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; z-index: 2000; }
-    .image-preview.active { display: flex; }
-
-    .preview-image { max-width: 95%; max-height: 95%; object-fit: contain; }
-
-    .close-preview { position: absolute; top: 20px; right: 20px; font-size: 35px; color: white; background: none; border: none; cursor: pointer; }
-
-    .preview-nav { position: absolute; width: 100%; display: flex; justify-content: space-between; top: 50%; transform: translateY(-50%); padding: 0 20px; }
-    .preview-nav button { background: rgba(255,255,255,0.3); border: none; color: white; font-size: 24px; width: 50px; height: 50px; border-radius: 50%; }
-
-    .footer { background: #333; color: white; text-align: center; padding: 15px; position: fixed; bottom: 0; width: 100%; }
-    .footer p, .footer a { color: white; font-size: clamp(12px, 3vw, 14px); }
-    .footer a { color: var(--ig-pink); }
-
-    @media (max-width: 768px) {
-      .gallery-slide { grid-template-columns: repeat(2, 1fr); }
+    
+    #downloadBtn:hover {
+      transform: scale(1.02);
     }
-    @media (max-width: 480px) {
-      .gallery-slide { grid-template-columns: 1fr; }
+    
+    #downloadBtn:active {
+      transform: scale(0.98);
+    }
+    
+    .info {
+      font-size: clamp(10px, 2.5vw, 12px);
+      color: #888;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    /* Image Gallery - MODIFIED FOR LARGER IMAGES */
+    .image-gallery {
+      margin: 20px 0;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .gallery-container {
+      display: flex;
+      transition: transform 0.8s ease;
+      width: 100%;
+      will-change: transform;
+    }
+    
+    .gallery-slide {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      padding: 0 5px;
+    }
+    
+    .gallery-image {
+      width: 100%;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+      aspect-ratio: 9/16;
+      min-height: 250px;
+    }
+    
+    .gallery-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #f5f5f5;
+    }
+    
+    .gallery-image:hover {
+      transform: scale(1.03);
+    }
+    
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .gallery-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .gallery-dot.active {
+      background: var(--ig-pink);
+    }
+
+    /* Full Size Image Preview */
+    .image-preview {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.95);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .image-preview.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .preview-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .preview-image {
+      max-width: 95%;
+      max-height: 95%;
+      object-fit: contain;
+      display: block;
+    }
+    
+    .close-preview {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 35px;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      z-index: 2001;
+    }
+    
+    .preview-nav {
+      position: absolute;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      z-index: 2001;
+    }
+    
+    .preview-nav button {
+      background: rgba(255,255,255,0.3);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+    
+    .preview-nav button:hover {
+      background: rgba(255,255,255,0.5);
+    }
+
+    /* Footer */
+    .footer {
+      width: 100%;
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      z-index: 1000;
+    }
+    
+    .footer p {
+      margin: 5px 0;
+      font-size: clamp(12px, 3vw, 14px);
+    }
+    
+    .footer a {
+      color: var(--ig-pink);
+      text-decoration: none;
+      font-size: clamp(12px, 3vw, 14px);
     }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar">
     <a href="/">Home</a>
     <h1>SKMods</h1>
   </nav>
 
+  <!-- Main Content -->
   <div class="content">
     <div class="top-section">
       <div class="circular-wrapper">
@@ -174,10 +409,15 @@
       <div class="app-info">
         <h1 id="appName">Loading...</h1>
         <p id="verifiedText">Verified by SKMods</p>
-        <div class="details" id="details">Developer: Loading...</div>
+        <div class="details" id="details">
+          Developer: Loading...<br>
+          Version: Loading... • Loading...<br>
+          Downloads: Loading...
+        </div>
       </div>
     </div>
 
+    <!-- Ad Container -->
     <div class="ads-container">
       <script type='text/javascript' src='//derideskid.com/35/41/e9/3541e932cb25237e89e4d40ce6461dff.js'></script>
     </div>
@@ -185,150 +425,267 @@
     <button id="downloadBtn">Download</button>
     <div class="info" id="infoText">Download APK safely and fast</div>
 
+    <!-- Image Gallery -->
     <div class="image-gallery" id="imageGallery">
       <div class="gallery-container" id="galleryContainer"></div>
       <div class="gallery-nav" id="galleryNav"></div>
     </div>
   </div>
 
+  <!-- Full Size Image Preview -->
+  <div class="image-preview" id="imagePreview">
+    <div class="preview-container">
+      <button class="close-preview">&times;</button>
+      <img class="preview-image" id="previewImage" src="" alt="Preview">
+      <div class="preview-nav">
+        <button id="prevImage">&lt;</button>
+        <button id="nextImage">&gt;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2023 SKMods. All rights reserved.</p>
     <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
   </footer>
 
-<script>
-let clicked = false;
-let currentSlide = 0;
-let autoScrollInterval;
-let startX = 0, startY = 0;
-let isDragging = false;
-let allGalleryImages = [];
-let currentPreviewIndex = 0;
+  <script>
+    let clicked = false;
+    let currentSlide = 0;
+    let autoScrollInterval;
+    let startX = 0, startY = 0;
+    let isDragging = false;
+    let allGalleryImages = [];
+    let currentPreviewIndex = 0;
 
-Promise.all([
-  fetch("strings.json").then(r => r.json()),
-  fetch("ads.json").then(r => r.json()),
-  fetch("gallery.json").then(r => r.json())
-]).then(([strings, ads, gallery]) => {
-  updatePageContent(strings);
-  initGallery(gallery.images);
-  setupDownloadButton(ads, strings);
-  initImagePreview();
-}).catch(() => {
-  const fallback = [
-    "https://via.placeholder.com/1080x1920?text=Screenshot+1",
-    "https://via.placeholder.com/1080x1920?text=Screenshot+2"
-  ];
-  initGallery(fallback);
-  initImagePreview();
-});
+    // Load configuration files
+    Promise.all([
+      fetch("strings.json").then(r => r.json()),
+      fetch("ads.json").then(r => r.json()),
+      fetch("gallery.json").then(r => r.json())
+    ])
+    .then(([strings, ads, gallery]) => {
+      updatePageContent(strings);
+      initGallery(gallery.images);
+      setupDownloadButton(ads, strings);
+      initImagePreview();
+    })
+    .catch(error => {
+      console.error("Error loading configuration:", error);
+      const fallbackImages = [
+        "https://via.placeholder.com/1080x1920?text=Screenshot+1",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+2",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+3",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+4"
+      ];
+      initGallery(fallbackImages);
+      initImagePreview();
+    });
 
-function updatePageContent(strings) {
-  document.getElementById("appName").textContent = strings.appName || "App Name";
-  document.getElementById("verifiedText").textContent = strings.verifiedText || "Verified by SKMods";
-}
-
-function initGallery(images) {
-  const galleryContainer = document.getElementById('galleryContainer');
-  const galleryNav = document.getElementById('galleryNav');
-  galleryContainer.innerHTML = '';
-  galleryNav.innerHTML = '';
-  allGalleryImages = images;
-
-  let perSlide = window.innerWidth < 480 ? 1 : window.innerWidth < 768 ? 2 : 3;
-  for (let i = 0; i < images.length; i += perSlide) {
-    const slide = document.createElement('div');
-    slide.className = 'gallery-slide';
-    for (let j = 0; j < perSlide && (i + j) < images.length; j++) {
-      const imgContainer = document.createElement('div');
-      imgContainer.className = 'gallery-image';
-      const img = document.createElement('img');
-      img.src = images[i + j];
-      img.dataset.index = i + j;
-      imgContainer.appendChild(img);
-      slide.appendChild(imgContainer);
-      imgContainer.addEventListener('click', () => showImagePreview(parseInt(img.dataset.index)));
+    function updatePageContent(strings) {
+      document.getElementById("appName").textContent = strings.appName || "App Name";
+      document.title = (strings.appName || "App") + " - Download";
+      document.querySelector('meta[name="description"]').content = strings.infoText || "Download APK safely and fast";
+      document.querySelector('meta[property="og:title"]').content = (strings.appName || "App") + " - Download";
+      document.querySelector('meta[property="og:description"]').content = strings.infoText || "Download APK safely and fast";
+      document.getElementById("verifiedText").textContent = strings.verifiedText || "Verified by SKMods";
+      document.getElementById("details").innerHTML = `
+        Developer: ${strings.developer || "Unknown"}<br>
+        Version: ${strings.version || "1.0"} • ${strings.size || "10MB"}<br>
+        ${strings.downloads || "1000+ Downloads"}
+      `;
+      document.getElementById("downloadBtn").textContent = strings.buttonText || "Download";
+      document.getElementById("infoText").textContent = strings.infoText || "Download APK safely and fast";
+      if (strings.appIcon) {
+        document.getElementById("appIcon").src = strings.appIcon;
+      }
     }
-    galleryContainer.appendChild(slide);
 
-    const dot = document.createElement('div');
-    dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goToSlide(Math.floor(i / perSlide)));
-    galleryNav.appendChild(dot);
-  }
+    function initGallery(images) {
+      const galleryContainer = document.getElementById('galleryContainer');
+      const galleryNav = document.getElementById('galleryNav');
+      galleryContainer.innerHTML = '';
+      galleryNav.innerHTML = '';
+      allGalleryImages = images;
 
-  const imageGallery = document.getElementById('imageGallery');
-  imageGallery.addEventListener('touchstart', e => {
-    clearInterval(autoScrollInterval);
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    isDragging = true;
-  }, { passive: true });
+      let imagesPerSlide = 3;
+      if (window.innerWidth < 768) imagesPerSlide = 2;
+      if (window.innerWidth < 480) imagesPerSlide = 1;
 
-  imageGallery.addEventListener('touchmove', e => {
-    if (!isDragging) return;
-    const diffX = Math.abs(startX - e.touches[0].clientX);
-    const diffY = Math.abs(startY - e.touches[0].clientY);
-    if (diffX > diffY) {
-      e.preventDefault();
-      const diff = startX - e.touches[0].clientX;
-      const dragOffset = (diff / window.innerWidth) * 100;
-      document.getElementById('galleryContainer').style.transition = 'none';
-      document.getElementById('galleryContainer').style.transform = `translateX(-${Math.max(0, Math.min(currentSlide * 100 + dragOffset, (document.querySelectorAll('.gallery-slide').length - 1) * 100))}%)`;
+      for (let i = 0; i < images.length; i += imagesPerSlide) {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        for (let j = 0; j < imagesPerSlide && (i + j) < images.length; j++) {
+          const imgContainer = document.createElement('div');
+          imgContainer.className = 'gallery-image';
+          const img = document.createElement('img');
+          img.src = images[i + j];
+          img.alt = `App Screenshot ${i + j + 1}`;
+          img.loading = "lazy";
+          img.dataset.index = i + j;
+          imgContainer.appendChild(img);
+          slide.appendChild(imgContainer);
+          imgContainer.addEventListener('click', () => {
+            currentPreviewIndex = parseInt(img.dataset.index);
+            showImagePreview(currentPreviewIndex);
+          });
+        }
+        galleryContainer.appendChild(slide);
+        const dot = document.createElement('div');
+        dot.className = 'gallery-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(Math.floor(i / imagesPerSlide)));
+        galleryNav.appendChild(dot);
+      }
+
+      const imageGallery = document.getElementById('imageGallery');
+      imageGallery.addEventListener('touchstart', handleTouchStart, { passive: true });
+      imageGallery.addEventListener('touchmove', handleTouchMove, { passive: false });
+      imageGallery.addEventListener('touchend', handleTouchEnd);
+
+      imageGallery.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+
+      autoScrollInterval = setInterval(nextSlide, 4000);
     }
-  }, { passive: false });
 
-  imageGallery.addEventListener('touchend', e => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) diff > 0 ? nextSlide() : prevSlide();
-    else goToSlide(currentSlide);
-    startAutoScroll();
-  });
-
-  startAutoScroll();
-}
-
-function setupDownloadButton(ads, strings) {
-  document.getElementById("downloadBtn").addEventListener("click", () => {
-    if (!clicked) {
-      if (ads.adLink) window.open(ads.adLink, "_blank");
-      document.getElementById("downloadBtn").textContent = strings.buttonTextSecond || "Continue Download";
-      clicked = true;
-    } else {
-      window.location.href = ads.apkLink || "#";
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      updateGalleryPosition();
     }
-  });
-}
 
-function showImagePreview(index) {
-  currentPreviewIndex = index;
-  const preview = document.createElement('div');
-  preview.className = 'image-preview active';
-  preview.innerHTML = `<button class="close-preview">&times;</button><img class="preview-image" src="${allGalleryImages[index]}">`;
-  document.body.appendChild(preview);
-  preview.querySelector('.close-preview').addEventListener('click', () => preview.remove());
-}
+    function updateGalleryPosition() {
+      const galleryContainer = document.getElementById('galleryContainer');
+      galleryContainer.style.transition = 'transform 0.5s ease';
+      galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+      const dots = document.querySelectorAll('.gallery-dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
 
-function nextSlide() {
-  currentSlide = (currentSlide + 1) % document.querySelectorAll('.gallery-slide').length;
-  updateGallery();
-}
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + document.querySelectorAll('.gallery-slide').length) % document.querySelectorAll('.gallery-slide').length;
-  updateGallery();
-}
-function goToSlide(s) { currentSlide = s; updateGallery(); }
-function updateGallery() {
-  document.getElementById('galleryContainer').style.transition = 'transform 0.8s ease';
-  document.getElementById('galleryContainer').style.transform = `translateX(-${currentSlide * 100}%)`;
-  document.querySelectorAll('.gallery-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
-}
-function startAutoScroll() {
-  if (autoScrollInterval) clearInterval(autoScrollInterval);
-  autoScrollInterval = setInterval(nextSlide, 5000);
-}
-</script>
+    function nextSlide() {
+      const totalSlides = document.querySelectorAll('.gallery-slide').length;
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateGalleryPosition();
+    }
+
+    function handleTouchStart(e) {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      isDragging = true;
+    }
+
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+
+      const x = e.touches[0].clientX;
+      const y = e.touches[0].clientY;
+      const diffX = startX - x;
+      const diffY = startY - y;
+
+      // Sirf horizontal swipe ke liye preventDefault
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        e.preventDefault();
+        const galleryContainer = document.getElementById('galleryContainer');
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
+        const dragOffset = (diffX / window.innerWidth) * 100;
+        let position = Math.max(0, Math.min(currentSlide * 100 + dragOffset, (totalSlides - 1) * 100));
+
+        galleryContainer.style.transition = 'none';
+        galleryContainer.style.transform = `translateX(-${position}%)`;
+      }
+    }
+
+    function handleTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = startX - e.changedTouches[0].clientX;
+      const diffY = startY - e.changedTouches[0].clientY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
+        if (diffX > 0 && currentSlide < totalSlides - 1) {
+          currentSlide++;
+        } else if (diffX < 0 && currentSlide > 0) {
+          currentSlide--;
+        }
+      }
+      updateGalleryPosition();
+    }
+
+    function handleMouseDown(e) {
+      startX = e.clientX;
+      isDragging = true;
+    }
+
+    function handleMouseMove(e) {
+      if (!isDragging) return;
+      const diffX = startX - e.clientX;
+      const galleryContainer = document.getElementById('galleryContainer');
+      const totalSlides = document.querySelectorAll('.gallery-slide').length;
+      const dragOffset = (diffX / window.innerWidth) * 100;
+      let position = Math.max(0, Math.min(currentSlide * 100 + dragOffset, (totalSlides - 1) * 100));
+
+      galleryContainer.style.transition = 'none';
+      galleryContainer.style.transform = `translateX(-${position}%)`;
+    }
+
+    function handleMouseUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = startX - e.clientX;
+
+      if (Math.abs(diffX) > 50) {
+        const totalSlides = document.querySelectorAll('.gallery-slide').length;
+        if (diffX > 0 && currentSlide < totalSlides - 1) {
+          currentSlide++;
+        } else if (diffX < 0 && currentSlide > 0) {
+          currentSlide--;
+        }
+      }
+      updateGalleryPosition();
+    }
+
+    function setupDownloadButton(ads, strings) {
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.addEventListener('click', () => {
+        if (clicked) return;
+        clicked = true;
+        downloadBtn.disabled = true;
+        downloadBtn.textContent = strings.loadingText || "Loading...";
+
+        setTimeout(() => {
+          window.location.href = ads.downloadUrl || "#";
+        }, 1000);
+      });
+    }
+
+    function initImagePreview() {
+      const preview = document.getElementById('imagePreview');
+      const previewImg = document.getElementById('previewImage');
+      const closeBtn = document.querySelector('.close-preview');
+      const prevBtn = document.getElementById('prevImage');
+      const nextBtn = document.getElementById('nextImage');
+
+      closeBtn.addEventListener('click', () => preview.classList.remove('active'));
+      prevBtn.addEventListener('click', () => showImagePreview(currentPreviewIndex - 1));
+      nextBtn.addEventListener('click', () => showImagePreview(currentPreviewIndex + 1));
+    }
+
+    function showImagePreview(index) {
+      const preview = document.getElementById('imagePreview');
+      const previewImg = document.getElementById('previewImage');
+
+      if (index < 0) index = allGalleryImages.length - 1;
+      if (index >= allGalleryImages.length) index = 0;
+
+      currentPreviewIndex = index;
+      previewImg.src = allGalleryImages[index];
+      preview.classList.add('active');
+    }
+  </script>
 </body>
 </html>
