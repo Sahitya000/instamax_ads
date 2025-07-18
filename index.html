@@ -18,6 +18,14 @@
   <link rel="canonical" href="https://sahitya000.github.io/instamax_ads/">
 
   <style>
+    :root {
+      --ig-purple: #833AB4;
+      --ig-pink: #E1306C;
+      --ig-orange: #F77737;
+      --ig-yellow: #FCAF45;
+      --ig-gradient: linear-gradient(45deg, var(--ig-purple), var(--ig-pink), var(--ig-orange), var(--ig-yellow));
+    }
+
     body {
       margin: 0;
       padding: 0;
@@ -30,10 +38,12 @@
       touch-action: pan-y;
     }
     
-    /* Navbar */
+    /* Navbar with Instagram Gradient */
     .navbar {
       width: 100%;
-      background: linear-gradient(90deg, #4CAF50, #45a049);
+      background: var(--ig-gradient);
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
       color: white;
       padding: 15px 0;
       text-align: center;
@@ -41,6 +51,12 @@
       position: fixed;
       top: 0;
       z-index: 1000;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     
     .navbar h1 {
@@ -69,6 +85,7 @@
       margin-top: 80px;
       margin-bottom: 70px;
     }
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
@@ -79,6 +96,7 @@
       align-items: center;
       margin-bottom: 15px;
     }
+    
     .circular-wrapper {
       position: relative;
       width: 20vw;
@@ -87,6 +105,7 @@
       margin-right: 15px;
       flex-shrink: 0;
     }
+    
     .circular-progress {
       position: absolute;
       top: 0;
@@ -94,12 +113,19 @@
       width: 100%;
       height: 100%;
       border-radius: 50%;
-      background: conic-gradient(#4CAF50 0deg, #e0e0e0 0deg);
+      background: conic-gradient(
+        var(--ig-purple) 0deg,
+        var(--ig-pink) 90deg,
+        var(--ig-orange) 180deg,
+        var(--ig-yellow) 270deg,
+        #e0e0e0 0deg
+      );
       transition: background 0.1s linear;
       padding: 4%;
       box-sizing: border-box;
       display: none;
     }
+    
     .app-icon {
       position: absolute;
       top: 50%;
@@ -112,16 +138,19 @@
       height: 70%;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
+    
     .app-info h1 {
       font-size: clamp(16px, 4vw, 20px);
       margin: 0;
       color: #333;
     }
+    
     .app-info p {
       margin: 2px 0;
       font-size: clamp(12px, 2.5vw, 14px);
       color: #666;
     }
+    
     .details {
       font-size: clamp(11px, 2vw, 13px);
       color: #888;
@@ -133,6 +162,7 @@
       width: 100%;
       max-width: 350px;
     }
+    
     .ads-container iframe {
       width: 100%;
       height: 200px;
@@ -140,8 +170,11 @@
       background: transparent;
     }
 
+    /* Instagram Gradient Button */
     #downloadBtn {
-      background: linear-gradient(90deg, #4CAF50, #45a049);
+      background: var(--ig-gradient);
+      background-size: 300% 300%;
+      animation: gradient 8s ease infinite;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -153,12 +186,15 @@
       transition: transform 0.2s;
       font-weight: 600;
     }
+    
     #downloadBtn:hover {
       transform: scale(1.05);
     }
+    
     #downloadBtn:active {
       transform: scale(0.98);
     }
+    
     .info {
       font-size: clamp(10px, 2vw, 12px);
       color: #888;
@@ -173,17 +209,20 @@
       overflow: hidden;
       position: relative;
     }
+    
     .gallery-container {
       display: flex;
       transition: transform 0.8s ease;
       width: 100%;
       will-change: transform;
     }
+    
     .gallery-slide {
       min-width: 100%;
       display: flex;
       justify-content: space-between;
     }
+    
     .gallery-image {
       width: 23%;
       height: 120px;
@@ -194,14 +233,17 @@
       user-select: none;
       -webkit-user-drag: none;
     }
+    
     .gallery-image:hover {
       transform: scale(1.03);
     }
+    
     .gallery-nav {
       display: flex;
       justify-content: center;
       margin-top: 10px;
     }
+    
     .gallery-dot {
       width: 10px;
       height: 10px;
@@ -211,8 +253,9 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+    
     .gallery-dot.active {
-      background: #4CAF50;
+      background: var(--ig-pink);
     }
 
     /* Footer */
@@ -226,12 +269,14 @@
       bottom: 0;
       z-index: 1000;
     }
+    
     .footer p {
       margin: 5px 0;
       font-size: 14px;
     }
+    
     .footer a {
-      color: #4CAF50;
+      color: var(--ig-pink);
       text-decoration: none;
     }
 
@@ -239,10 +284,12 @@
       .ads-container iframe {
         height: 150px;
       }
+      
       .circular-wrapper {
         width: 25vw;
         max-width: 70px;
       }
+      
       .gallery-image {
         height: 80px;
       }
@@ -413,7 +460,13 @@
           let progress = 0;
           const interval = setInterval(() => {
             progress++;
-            circle.style.background = `conic-gradient(#4CAF50 ${progress * 3.6}deg, #e0e0e0 0deg)`;
+            circle.style.background = `conic-gradient(
+              var(--ig-purple) ${progress * 1.8}deg,
+              var(--ig-pink) ${progress * 2.7}deg,
+              var(--ig-orange) ${progress * 3.6}deg,
+              var(--ig-yellow) ${progress * 4.5}deg,
+              #e0e0e0 0deg
+            )`;
             if (progress >= 100) {
               clearInterval(interval);
               setTimeout(() => { 
