@@ -214,7 +214,7 @@
       text-align: center;
     }
 
-    /* Responsive Image Gallery */
+    /* Image Gallery - MODIFIED FOR LARGER IMAGES */
     .image-gallery {
       margin: 20px 0;
       width: 100%;
@@ -236,8 +236,10 @@
     .gallery-slide {
       min-width: 100%;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
+      /* ADJUST NUMBER OF COLUMNS HERE (3 columns by default) */
+      grid-template-columns: repeat(3, 1fr);
+      /* ADJUST GAP BETWEEN IMAGES HERE (15px by default) */
+      gap: 15px;
       padding: 0 5px;
     }
     
@@ -249,7 +251,10 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s;
       cursor: pointer;
-      aspect-ratio: 9/16; /* Portrait aspect ratio */
+      /* ADJUST ASPECT RATIO HERE (9/16 for portrait) */
+      aspect-ratio: 9/16;
+      /* ADJUST MINIMUM HEIGHT OF IMAGES HERE (250px by default) */
+      min-height: 250px;
     }
     
     .gallery-image img {
@@ -258,6 +263,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      /* CONTAIN shows full image, COVER crops to fill */
       object-fit: contain;
       background: #f5f5f5;
     }
@@ -287,7 +293,7 @@
       background: var(--ig-pink);
     }
 
-    /* Full Size Image Preview */
+    /* Full Size Image Preview - MODIFIED FOR FULL SCREEN */
     .image-preview {
       display: none;
       position: fixed;
@@ -318,8 +324,9 @@
     }
     
     .preview-image {
-      max-width: 100%;
-      max-height: 100%;
+      /* ADJUST MAXIMUM PREVIEW SIZE HERE */
+      max-width: 95%;
+      max-height: 95%;
       object-fit: contain;
       display: block;
     }
@@ -393,8 +400,9 @@
     /* Responsive Adjustments */
     @media (max-width: 768px) {
       .gallery-slide {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
+        /* ADJUST COLUMNS FOR TABLETS (2 columns) */
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
       
       .close-preview {
@@ -426,8 +434,14 @@
       }
       
       .gallery-slide {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 6px;
+        /* ADJUST COLUMNS FOR MOBILE (1 column) */
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      
+      .gallery-image {
+        /* ADJUST MOBILE IMAGE HEIGHT */
+        min-height: 300px;
       }
 
       .close-preview {
@@ -440,16 +454,6 @@
         width: 35px;
         height: 35px;
         font-size: 18px;
-      }
-    }
-    
-    @media (max-width: 350px) {
-      .gallery-slide {
-        grid-template-columns: 1fr;
-      }
-      
-      .navbar a {
-        left: 10px;
       }
     }
   </style>
@@ -581,11 +585,10 @@
       galleryNav.innerHTML = '';
       allGalleryImages = images;
       
-      // Determine images per slide based on screen width
-      let imagesPerSlide = 4; // Default for desktop
-      if (window.innerWidth < 768) imagesPerSlide = 3; // Tablets
-      if (window.innerWidth < 480) imagesPerSlide = 2; // Mobile
-      if (window.innerWidth < 350) imagesPerSlide = 1; // Very small screens
+      // ADJUST IMAGES PER SLIDE BASED ON SCREEN WIDTH HERE
+      let imagesPerSlide = 3; // Default for desktop
+      if (window.innerWidth < 768) imagesPerSlide = 2; // Tablets
+      if (window.innerWidth < 480) imagesPerSlide = 1; // Mobile
       
       // Group images into slides
       for (let i = 0; i < images.length; i += imagesPerSlide) {
@@ -598,9 +601,8 @@
           imgContainer.className = 'gallery-image';
           
           const img = document.createElement('img');
-          // Use thumbnail version for gallery (replace with your actual thumbnail URLs)
-          let thumbUrl = images[i + j];
-          img.src = thumbUrl;
+          // Use original image URL (no thumbnail)
+          img.src = images[i + j];
           img.alt = `App Screenshot ${i + j + 1}`;
           img.loading = "lazy";
           img.dataset.index = i + j;
@@ -608,7 +610,7 @@
           imgContainer.appendChild(img);
           slide.appendChild(imgContainer);
           
-          // Add click event for preview
+          // Add click event for full screen preview
           imgContainer.addEventListener('click', () => {
             currentPreviewIndex = parseInt(img.dataset.index);
             showImagePreview(currentPreviewIndex);
