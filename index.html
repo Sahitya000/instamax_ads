@@ -19,10 +19,13 @@
 
   <style>
     body {
-      margin: 0; padding: 0;
-      font-family: 'Segoe UI', sans-serif;
+      margin: 0; 
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #f5f5f5;
-      display: flex; justify-content: center; align-items: center;
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
       min-height: 100vh;
     }
     .card {
@@ -34,7 +37,16 @@
       width: 90%;
       animation: fadeIn 0.5s ease-in;
     }
-    @keyframes fadeIn {from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);}}
+    @keyframes fadeIn {
+      from {
+        opacity: 0; 
+        transform: scale(0.95);
+      } 
+      to {
+        opacity: 1; 
+        transform: scale(1);
+      }
+    }
 
     .top-section {
       display: flex;
@@ -51,8 +63,10 @@
     }
     .circular-progress {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
       border-radius: 50%;
       background: conic-gradient(#4CAF50 0deg, #e0e0e0 0deg);
       transition: background 0.1s linear;
@@ -62,7 +76,8 @@
     }
     .app-icon {
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%; 
+      left: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       object-fit: cover;
@@ -73,33 +88,66 @@
     }
     .app-info h1 {
       font-size: clamp(16px, 4vw, 20px);
-      margin: 0; color: #333;
+      margin: 0; 
+      color: #333;
     }
     .app-info p {
-      margin: 2px 0; font-size: clamp(12px, 2.5vw, 14px); color: #666;
+      margin: 2px 0; 
+      font-size: clamp(12px, 2.5vw, 14px); 
+      color: #666;
     }
     .details {
-      font-size: clamp(11px, 2vw, 13px); color: #888;
+      font-size: clamp(11px, 2vw, 13px); 
+      color: #888;
       margin-top: 4px;
     }
 
-    .ads-container {margin: 15px auto; width: 100%; max-width: 350px;}
-    .ads-container iframe {width: 100%; height: 200px; border: none;}
+    .ads-container {
+      margin: 15px auto; 
+      width: 100%; 
+      max-width: 350px;
+    }
+    .ads-container iframe {
+      width: 100%; 
+      height: 200px; 
+      border: none;
+      background: transparent;
+    }
 
     #downloadBtn {
       background: linear-gradient(90deg, #4CAF50, #45a049);
-      color: #fff; border: none; border-radius: 8px;
-      padding: 12px; width: 100%;
+      color: #fff; 
+      border: none; 
+      border-radius: 8px;
+      padding: 12px; 
+      width: 100%;
       font-size: clamp(14px, 3.5vw, 16px);
-      cursor: pointer; margin-top: 10px;
+      cursor: pointer; 
+      margin-top: 10px;
       transition: transform 0.2s;
+      font-weight: 600;
     }
-    #downloadBtn:hover {transform: scale(1.05);}
-    .info {font-size: clamp(10px, 2vw, 12px); color: #888; margin-top: 10px; text-align: center;}
+    #downloadBtn:hover {
+      transform: scale(1.05);
+    }
+    #downloadBtn:active {
+      transform: scale(0.98);
+    }
+    .info {
+      font-size: clamp(10px, 2vw, 12px); 
+      color: #888; 
+      margin-top: 10px; 
+      text-align: center;
+    }
 
     @media (max-width: 480px) {
-      .ads-container iframe {height: 150px;}
-      .circular-wrapper {width: 25vw; max-width: 70px;}
+      .ads-container iframe {
+        height: 150px;
+      }
+      .circular-wrapper {
+        width: 25vw; 
+        max-width: 70px;
+      }
     }
   </style>
 </head>
@@ -108,12 +156,16 @@
     <div class="top-section">
       <div class="circular-wrapper">
         <div id="circularProgress" class="circular-progress"></div>
-        <img id="appIcon" class="app-icon" alt="App Icon">
+        <img id="appIcon" class="app-icon" alt="App Icon" src="placeholder-icon.png">
       </div>
       <div class="app-info">
-        <h1 id="appName"></h1>
-        <p id="verifiedText"></p>
-        <div class="details" id="details"></div>
+        <h1 id="appName">Loading...</h1>
+        <p id="verifiedText">Verified by SKMods</p>
+        <div class="details" id="details">
+          Developer: Loading...<br>
+          Version: Loading... • Loading...<br>
+          Downloads: Loading...
+        </div>
       </div>
     </div>
 
@@ -122,37 +174,57 @@
       <script type='text/javascript' src='//derideskid.com/35/41/e9/3541e932cb25237e89e4d40ce6461dff.js'></script>
     </div>
 
-    <button id="downloadBtn"></button>
-    <div class="info" id="infoText"></div>
+    <button id="downloadBtn">Download</button>
+    <div class="info" id="infoText">Download APK safely and fast</div>
   </div>
 
   <script>
     let clicked = false;
     let adLink = "", apkLink = "", buttonTextSecond = "";
 
+    // Add error handling for the fetch requests
     Promise.all([
-      fetch("strings.json").then(r => r.json()),
-      fetch("ads.json").then(r => r.json())
+      fetch("strings.json").then(response => {
+        if (!response.ok) throw new Error("Failed to load strings");
+        return response.json();
+      }),
+      fetch("ads.json").then(response => {
+        if (!response.ok) throw new Error("Failed to load ads");
+        return response.json();
+      })
     ])
     .then(([strings, ads]) => {
-      document.getElementById("appName").textContent = strings.appName;
-      document.title = strings.appName + " - Download";
-      document.querySelector('meta[name="description"]').setAttribute("content", strings.infoText);
-      document.querySelector('meta[property="og:title"]').setAttribute("content", strings.appName + " - Download");
-      document.querySelector('meta[property="og:description"]').setAttribute("content", strings.infoText);
-      document.querySelector('meta[property="og:image"]').setAttribute("content", strings.appIcon);
+      // Update the page content
+      document.getElementById("appName").textContent = strings.appName || "App Name";
+      document.title = (strings.appName || "App") + " - Download";
+      
+      const metaDescription = strings.infoText || "Download APK safely and fast";
+      document.querySelector('meta[name="description"]').setAttribute("content", metaDescription);
+      document.querySelector('meta[property="og:title"]').setAttribute("content", (strings.appName || "App") + " - Download");
+      document.querySelector('meta[property="og:description"]').setAttribute("content", metaDescription);
+      document.querySelector('meta[property="og:image"]').setAttribute("content", strings.appIcon || "");
 
-      document.getElementById("verifiedText").textContent = strings.verifiedText;
-      document.getElementById("details").innerHTML =
-        `Developer: ${strings.developer}<br>Version: ${strings.version} • ${strings.size}<br>${strings.downloads}`;
-      document.getElementById("downloadBtn").textContent = strings.buttonText;
-      document.getElementById("infoText").textContent = strings.infoText;
-      document.getElementById("appIcon").src = strings.appIcon;
+      document.getElementById("verifiedText").textContent = strings.verifiedText || "Verified by SKMods";
+      
+      if (strings.developer && strings.version && strings.size && strings.downloads) {
+        document.getElementById("details").innerHTML =
+          `Developer: ${strings.developer}<br>Version: ${strings.version} • ${strings.size}<br>${strings.downloads}`;
+      }
+      
+      document.getElementById("downloadBtn").textContent = strings.buttonText || "Download";
+      document.getElementById("infoText").textContent = strings.infoText || "Download APK safely and fast";
+      
+      if (strings.appIcon) {
+        document.getElementById("appIcon").src = strings.appIcon;
+      }
 
-      document.getElementById("adIframe").src = ads.adIframeSrc;
-      adLink = ads.adLink;
-      apkLink = ads.apkLink;
-      buttonTextSecond = strings.buttonTextSecond;
+      adLink = ads.adLink || "#";
+      apkLink = ads.apkLink || "#";
+      buttonTextSecond = strings.buttonTextSecond || "Continue Download";
+    })
+    .catch(error => {
+      console.error("Error loading data:", error);
+      // You could show an error message to the user here
     });
 
     const btn = document.getElementById("downloadBtn");
@@ -160,8 +232,11 @@
 
     btn.addEventListener("click", () => {
       if (!clicked) {
-        window.open(adLink, "_blank");
-        btn.textContent = buttonTextSecond;
+        // Open ad link in new tab
+        if (adLink && adLink !== "#") {
+          window.open(adLink, "_blank");
+        }
+        btn.textContent = buttonTextSecond || "Continue Download";
         clicked = true;
       } else {
         btn.style.display = "none";
@@ -172,7 +247,16 @@
           circle.style.background = `conic-gradient(#4CAF50 ${progress * 3.6}deg, #e0e0e0 0deg)`;
           if (progress >= 100) {
             clearInterval(interval);
-            setTimeout(() => { window.location.href = apkLink; }, 500);
+            setTimeout(() => { 
+              if (apkLink && apkLink !== "#") {
+                window.location.href = apkLink;
+              } else {
+                // Fallback if no apkLink is provided
+                btn.style.display = "block";
+                circle.style.display = "none";
+                alert("Download link not available");
+              }
+            }, 500);
           }
         }, 50);
       }
