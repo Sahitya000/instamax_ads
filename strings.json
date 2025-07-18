@@ -1,0 +1,13 @@
+{
+  "appName": "My Cool App",
+  "verifiedText": "Verified by Play Protect",
+  "developer": "SKMods",
+  "version": "2.0",
+  "size": "25 MB",
+  "downloads": "10M+ downloads",
+  "buttonText": "Download APK",
+  "buttonTextSecond": "Click again to Download APK",
+  "infoText": "Safe & fast download, verified by SKMods",
+  "appIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/512px-Google_Play_Store_badge_EN.svg.png",
+  "iconSize": "64px"
+}
