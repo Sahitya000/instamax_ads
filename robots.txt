@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sahitya000.github.io/instamax_ads/sitemap.xml
