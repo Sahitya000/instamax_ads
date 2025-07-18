@@ -25,8 +25,9 @@
       background: #f5f5f5;
       display: flex; 
       justify-content: center; 
-      align-items: center;
+      align-items: flex-start;
       min-height: 100vh;
+      touch-action: pan-y;
     }
     .card {
       background: #fff;
@@ -36,16 +37,11 @@
       max-width: 480px;
       width: 90%;
       animation: fadeIn 0.5s ease-in;
+      margin-top: 20px;
     }
     @keyframes fadeIn {
-      from {
-        opacity: 0; 
-        transform: scale(0.95);
-      } 
-      to {
-        opacity: 1; 
-        transform: scale(1);
-      }
+      from { opacity: 0; transform: scale(0.95); } 
+      to { opacity: 1; transform: scale(1); }
     }
 
     .top-section {
@@ -140,6 +136,55 @@
       text-align: center;
     }
 
+    /* Image Gallery Styles */
+    .image-gallery {
+      margin-top: 20px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-container {
+      display: flex;
+      transition: transform 0.8s ease;
+      width: 100%;
+      will-change: transform;
+    }
+    .gallery-slide {
+      min-width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .gallery-image {
+      width: 23%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .gallery-image:hover {
+      transform: scale(1.03);
+    }
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    .gallery-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .gallery-dot.active {
+      background: #4CAF50;
+    }
+
     @media (max-width: 480px) {
       .ads-container iframe {
         height: 150px;
@@ -147,6 +192,9 @@
       .circular-wrapper {
         width: 25vw; 
         max-width: 70px;
+      }
+      .gallery-image {
+        height: 80px;
       }
     }
   </style>
@@ -176,11 +224,228 @@
 
     <button id="downloadBtn">Download</button>
     <div class="info" id="infoText">Download APK safely and fast</div>
+
+    <!-- Image Gallery -->
+    <div class="image-gallery" id="imageGallery">
+      <div class="gallery-container" id="galleryContainer">
+        <!-- Slides will be added dynamically -->
+      </div>
+      <div class="gallery-nav" id="galleryNav">
+        <!-- Navigation dots will be added dynamically -->
+      </div>
+    </div>
   </div>
 
   <script>
     let clicked = false;
     let adLink = "", apkLink = "", buttonTextSecond = "";
+    let currentSlide = 0;
+    let autoScrollInterval;
+    let startX = 0;
+    let isDragging = false;
+    const galleryImages = [
+      "https://via.placeholder.com/300x150?text=App+Screenshot+1",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+2",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+3",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+4",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+5",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+6",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+7",
+      "https://via.placeholder.com/300x150?text=App+Screenshot+8"
+    ];
+
+    // Initialize gallery with touch support
+    function initGallery() {
+      const galleryContainer = document.getElementById('galleryContainer');
+      const galleryNav = document.getElementById('galleryNav');
+      const imageGallery = document.getElementById('imageGallery');
+      
+      // Group images into slides (4 images per slide)
+      for (let i = 0; i < galleryImages.length; i += 4) {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        
+        // Add up to 4 images to this slide
+        for (let j = 0; j < 4 && (i + j) < galleryImages.length; j++) {
+          const img = document.createElement('img');
+          img.src = galleryImages[i + j];
+          img.className = 'gallery-image';
+          img.alt = `App Screenshot ${i + j + 1}`;
+          slide.appendChild(img);
+        }
+        
+        galleryContainer.appendChild(slide);
+        
+        // Add navigation dot
+        const dot = document.createElement('div');
+        dot.className = 'gallery-dot';
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          goToSlide(i / 4);
+        });
+        galleryNav.appendChild(dot);
+      }
+      
+      // Touch event handlers
+      imageGallery.addEventListener('touchstart', handleTouchStart, { passive: true });
+      imageGallery.addEventListener('touchmove', handleTouchMove, { passive: false });
+      imageGallery.addEventListener('touchend', handleTouchEnd);
+      
+      // Mouse event handlers for desktop
+      imageGallery.addEventListener('mousedown', handleMouseDown);
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      
+      // Start auto-scroll (slower - every 5 seconds)
+      startAutoScroll();
+    }
+    
+    function startAutoScroll() {
+      // Clear existing interval if any
+      if (autoScrollInterval) clearInterval(autoScrollInterval);
+      
+      // Set new interval (5000ms = 5 seconds)
+      autoScrollInterval = setInterval(() => {
+        nextSlide();
+      }, 5000);
+    }
+    
+    function handleTouchStart(e) {
+      // Pause auto-scroll during interaction
+      clearInterval(autoScrollInterval);
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    }
+    
+    function handleTouchMove(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      
+      const x = e.touches[0].clientX;
+      const diff = startX - x;
+      
+      // Only allow horizontal drag
+      if (Math.abs(diff) > 10) {
+        const galleryContainer = document.getElementById('galleryContainer');
+        const slideWidth = 100 / Math.ceil(galleryImages.length / 4);
+        const dragOffset = (diff / window.innerWidth) * 100;
+        
+        // Calculate the position with drag offset
+        let position = currentSlide * 100 + dragOffset;
+        
+        // Limit dragging to first and last slide
+        position = Math.max(position, 0);
+        position = Math.min(position, (Math.ceil(galleryImages.length / 4) - 1) * 100);
+        
+        galleryContainer.style.transition = 'none';
+        galleryContainer.style.transform = `translateX(-${position}%)`;
+      }
+    }
+    
+    function handleTouchEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      
+      // Determine if it's a swipe (threshold of 50px)
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextSlide(); // Swipe left
+        } else {
+          prevSlide(); // Swipe right
+        }
+      } else {
+        // Not a swipe - return to current slide
+        goToSlide(currentSlide);
+      }
+      
+      // Resume auto-scroll
+      startAutoScroll();
+    }
+    
+    // Mouse event handlers (similar to touch)
+    function handleMouseDown(e) {
+      clearInterval(autoScrollInterval);
+      startX = e.clientX;
+      isDragging = true;
+    }
+    
+    function handleMouseMove(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      
+      const x = e.clientX;
+      const diff = startX - x;
+      
+      if (Math.abs(diff) > 10) {
+        const galleryContainer = document.getElementById('galleryContainer');
+        const slideWidth = 100 / Math.ceil(galleryImages.length / 4);
+        const dragOffset = (diff / window.innerWidth) * 100;
+        
+        let position = currentSlide * 100 + dragOffset;
+        position = Math.max(position, 0);
+        position = Math.min(position, (Math.ceil(galleryImages.length / 4) - 1) * 100);
+        
+        galleryContainer.style.transition = 'none';
+        galleryContainer.style.transform = `translateX(-${position}%)`;
+      }
+    }
+    
+    function handleMouseUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      
+      const endX = e.clientX;
+      const diff = startX - endX;
+      
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      } else {
+        goToSlide(currentSlide);
+      }
+      
+      startAutoScroll();
+    }
+    
+    function nextSlide() {
+      const totalSlides = Math.ceil(galleryImages.length / 4);
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateGallery();
+    }
+    
+    function prevSlide() {
+      const totalSlides = Math.ceil(galleryImages.length / 4);
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateGallery();
+    }
+    
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      updateGallery();
+    }
+    
+    function updateGallery() {
+      const galleryContainer = document.getElementById('galleryContainer');
+      const dots = document.querySelectorAll('.gallery-dot');
+      
+      // Re-enable transition
+      galleryContainer.style.transition = 'transform 0.8s ease';
+      galleryContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
 
     // Add error handling for the fetch requests
     Promise.all([
@@ -221,10 +486,14 @@
       adLink = ads.adLink || "#";
       apkLink = ads.apkLink || "#";
       buttonTextSecond = strings.buttonTextSecond || "Continue Download";
+      
+      // Initialize gallery after content is loaded
+      initGallery();
     })
     .catch(error => {
       console.error("Error loading data:", error);
-      // You could show an error message to the user here
+      // Initialize gallery even if other content fails to load
+      initGallery();
     });
 
     const btn = document.getElementById("downloadBtn");
