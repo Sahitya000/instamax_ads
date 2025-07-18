@@ -3,7 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Download</title>
+  <title>Loading...</title>
+  <meta name="description" content="Download APK safely and fast. Verified by SKMods.">
+
+  <!-- Open Graph Tags for Social Share -->
+  <meta property="og:title" content="Loading...">
+  <meta property="og:description" content="Download APK safely and fast. Verified by SKMods.">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="https://sahitya000.github.io/instamax_ads/">
+  <meta property="og:type" content="website">
+
+  <!-- Robots and Canonical -->
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sahitya000.github.io/instamax_ads/">
+
   <style>
     body {
       margin: 0; padding: 0;
@@ -21,10 +34,7 @@
       width: 90%;
       animation: fadeIn 0.5s ease-in;
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    @keyframes fadeIn {from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);}}
 
     .top-section {
       display: flex;
@@ -73,45 +83,23 @@
       margin-top: 4px;
     }
 
-    .ads-container {
-      margin: 15px auto;
-      width: 100%;
-      max-width: 350px;
-    }
-    .ads-container iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-    }
+    .ads-container {margin: 15px auto; width: 100%; max-width: 350px;}
+    .ads-container iframe {width: 100%; height: 200px; border: none;}
 
     #downloadBtn {
       background: linear-gradient(90deg, #4CAF50, #45a049);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 12px;
-      width: 100%;
+      color: #fff; border: none; border-radius: 8px;
+      padding: 12px; width: 100%;
       font-size: clamp(14px, 3.5vw, 16px);
-      cursor: pointer;
-      margin-top: 10px;
+      cursor: pointer; margin-top: 10px;
       transition: transform 0.2s;
     }
-    #downloadBtn:hover { transform: scale(1.05); }
-    .info {
-      font-size: clamp(10px, 2vw, 12px);
-      color: #888;
-      margin-top: 10px;
-      text-align: center;
-    }
+    #downloadBtn:hover {transform: scale(1.05);}
+    .info {font-size: clamp(10px, 2vw, 12px); color: #888; margin-top: 10px; text-align: center;}
 
     @media (max-width: 480px) {
-      .ads-container iframe {
-        height: 150px;
-      }
-      .circular-wrapper {
-        width: 25vw;
-        max-width: 70px;
-      }
+      .ads-container iframe {height: 150px;}
+      .circular-wrapper {width: 25vw; max-width: 70px;}
     }
   </style>
 </head>
@@ -129,6 +117,7 @@
       </div>
     </div>
 
+    <!-- Adsterra Ad Placement -->
     <div class="ads-container">
       <iframe id="adIframe"></iframe>
     </div>
@@ -147,14 +136,18 @@
     ])
     .then(([strings, ads]) => {
       document.getElementById("appName").textContent = strings.appName;
+      document.title = strings.appName + " - Download";
+      document.querySelector('meta[name="description"]').setAttribute("content", strings.infoText);
+      document.querySelector('meta[property="og:title"]').setAttribute("content", strings.appName + " - Download");
+      document.querySelector('meta[property="og:description"]').setAttribute("content", strings.infoText);
+      document.querySelector('meta[property="og:image"]').setAttribute("content", strings.appIcon);
+
       document.getElementById("verifiedText").textContent = strings.verifiedText;
       document.getElementById("details").innerHTML =
         `Developer: ${strings.developer}<br>Version: ${strings.version} • ${strings.size}<br>${strings.downloads}`;
       document.getElementById("downloadBtn").textContent = strings.buttonText;
       document.getElementById("infoText").textContent = strings.infoText;
-
-      const icon = document.getElementById("appIcon");
-      icon.src = strings.appIcon;
+      document.getElementById("appIcon").src = strings.appIcon;
 
       document.getElementById("adIframe").src = ads.adIframeSrc;
       adLink = ads.adLink;
