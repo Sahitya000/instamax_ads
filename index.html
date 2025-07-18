@@ -243,14 +243,13 @@
     
     .gallery-image {
       width: 100%;
-      height: 0;
-      padding-bottom: 150%;
       position: relative;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       transition: transform 0.3s;
       cursor: pointer;
+      aspect-ratio: 9/16; /* Portrait aspect ratio */
     }
     
     .gallery-image img {
@@ -259,7 +258,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      background: #f5f5f5;
     }
     
     .gallery-image:hover {
@@ -429,10 +429,6 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
       }
-      
-      .gallery-image {
-        padding-bottom: 100%;
-      }
 
       .close-preview {
         top: 10px;
@@ -450,10 +446,6 @@
     @media (max-width: 350px) {
       .gallery-slide {
         grid-template-columns: 1fr;
-      }
-      
-      .gallery-image {
-        padding-bottom: 150%;
       }
       
       .navbar a {
@@ -547,10 +539,10 @@
       console.error("Error loading configuration:", error);
       // Fallback to default gallery if config fails
       const fallbackImages = [
-        "https://via.placeholder.com/800x400?text=Screenshot+1",
-        "https://via.placeholder.com/800x400?text=Screenshot+2",
-        "https://via.placeholder.com/800x400?text=Screenshot+3",
-        "https://via.placeholder.com/800x400?text=Screenshot+4"
+        "https://via.placeholder.com/1080x1920?text=Screenshot+1",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+2",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+3",
+        "https://via.placeholder.com/1080x1920?text=Screenshot+4"
       ];
       initGallery(fallbackImages);
       initImagePreview();
@@ -607,7 +599,7 @@
           
           const img = document.createElement('img');
           // Use thumbnail version for gallery (replace with your actual thumbnail URLs)
-          let thumbUrl = images[i + j].replace('800x400', '300x150');
+          let thumbUrl = images[i + j];
           img.src = thumbUrl;
           img.alt = `App Screenshot ${i + j + 1}`;
           img.loading = "lazy";
