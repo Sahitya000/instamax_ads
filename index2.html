@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,16 +13,17 @@
         }
         html {
             height: 100%;
-            overflow-y: scroll; /* Always show vertical scrollbar to prevent layout shift */
+            overflow-y: scroll;
         }
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             text-align: center;
-            padding: 15px;
+            padding: 20px 15px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            align-items: center;
+            overflow-x: hidden;
         }
         .container {
             width: 100%;
@@ -33,7 +35,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             position: relative;
             overflow: hidden;
-            flex: 1;
         }
         .container::before {
             content: '';
@@ -99,9 +100,10 @@
         }
         .info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
             gap: clamp(8px, 2vw, 10px);
             padding: clamp(12px, 3vw, 15px) 0;
+            margin: clamp(8px, 2vw, 12px) 0;
         }
         .info-item {
             background: rgba(245, 245, 245, 0.7);
@@ -207,6 +209,7 @@
             gap: clamp(8px, 2vw, 10px);
             overflow-x: auto;
             padding: clamp(12px, 3vw, 15px) 0;
+            margin: clamp(8px, 2vw, 12px) 0;
             scrollbar-width: thin;
             scrollbar-color: #dc2743 #f5f5f5;
             -webkit-overflow-scrolling: touch;
@@ -236,23 +239,10 @@
         }
         .features {
             text-align: left;
-            margin-top: clamp(12px, 3vw, 15px);
+            margin: clamp(12px, 3vw, 15px) 0;
             padding: clamp(12px, 3vw, 15px);
             background: rgba(245, 245, 245, 0.7);
             border-radius: clamp(8px, 2.5vw, 12px);
-            overflow-y: auto;
-            max-height: 300px;
-        }
-        .features::-webkit-scrollbar {
-            width: 6px;
-        }
-        .features::-webkit-scrollbar-track {
-            background: #f5f5f5;
-            border-radius: 10px;
-        }
-        .features::-webkit-scrollbar-thumb {
-            background-color: #dc2743;
-            border-radius: 10px;
         }
         .features h3 {
             font-size: clamp(14px, 4vw, 18px);
@@ -278,8 +268,6 @@
             color: #4CAF50;
             font-weight: bold;
         }
-
-        /* Enhanced Footer Styles */
         footer {
             margin-top: clamp(15px, 4vw, 20px);
             padding: clamp(12px, 3vw, 15px) 0;
@@ -288,8 +276,6 @@
             text-align: center;
             width: 100%;
             max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
         }
         .footer-links {
             display: flex;
@@ -340,8 +326,6 @@
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
         }
-
-        /* Custom scrollbar for the whole page */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -355,14 +339,33 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(#dc2743, #bc1888);
         }
-
-        /* Special cases for very small devices */
-        @media (max-width: 320px) {
+        @media (max-width: 500px) {
             .info {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
-            .header-text h1, .header-text small {
-                white-space: normal;
+            .screenshots {
+                flex-wrap: wrap;
+                justify-content: center;
+                overflow-x: visible;
+            }
+            .screenshots img {
+                width: 45%;
+                margin-bottom: 10px;
+            }
+        }
+        @media (max-width: 350px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-text {
+                text-align: center;
+            }
+            .info {
+                grid-template-columns: 1fr;
+            }
+            .screenshots img {
+                width: 100%;
             }
         }
     </style>
@@ -453,7 +456,7 @@
         </div>
         <div class="copyright">
             © 2024 SkMods. All rights reserved.<br>
-            InstaMax is a enhanced version of Meta Platforms, Inc.
+            Instagram is a trademark of Meta Platforms, Inc.
         </div>
     </footer>
 
