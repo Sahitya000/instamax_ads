@@ -10,21 +10,26 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
+        html {
+            height: 100%;
+            overflow-y: scroll; /* Always show vertical scrollbar to prevent layout shift */
+        }
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         .container {
-            max-width: 500px;
             width: 100%;
+            max-width: 500px;
             margin: 0 auto;
             background: white;
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: clamp(12px, 3vw, 20px);
+            padding: clamp(15px, 4vw, 25px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             position: relative;
             overflow: hidden;
@@ -36,20 +41,20 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 8px;
+            height: clamp(6px, 1.5vw, 8px);
             background: linear-gradient(90deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
         .header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
+            gap: clamp(10px, 3vw, 15px);
+            margin-bottom: clamp(15px, 4vw, 20px);
+            padding-bottom: clamp(12px, 3vw, 15px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
         .header img {
-            width: 60px;
-            height: 60px;
+            width: clamp(45px, 12vw, 60px);
+            height: clamp(45px, 12vw, 60px);
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid white;
@@ -58,42 +63,52 @@
         .header-text {
             text-align: left;
             flex: 1;
+            min-width: 0;
         }
         .header-text h1 {
-            font-size: clamp(18px, 4vw, 22px);
+            font-size: clamp(16px, 4.5vw, 22px);
             font-weight: 800;
             color: #262626;
             margin-bottom: 3px;
             background: linear-gradient(90deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .header-text small {
-            font-size: clamp(10px, 2.5vw, 12px);
+            font-size: clamp(10px, 2.8vw, 12px);
             color: #8e8e8e;
             font-weight: 500;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .badge {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
             color: white;
-            padding: 3px 10px;
+            padding: 2px clamp(6px, 2vw, 10px);
             border-radius: 20px;
-            font-size: 11px;
+            font-size: clamp(9px, 2.5vw, 11px);
             font-weight: bold;
             display: inline-block;
-            margin-top: 5px;
+            margin-top: 4px;
+            white-space: nowrap;
         }
         .info {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 15px 0;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: clamp(8px, 2vw, 10px);
+            padding: clamp(12px, 3vw, 15px) 0;
         }
         .info-item {
             background: rgba(245, 245, 245, 0.7);
-            padding: 10px;
-            border-radius: 10px;
+            padding: clamp(8px, 2vw, 10px);
+            border-radius: clamp(8px, 2vw, 10px);
             transition: all 0.3s ease;
+            min-width: 0;
         }
         .info-item:hover {
             transform: translateY(-3px);
@@ -102,27 +117,32 @@
         }
         .info-item strong {
             display: block;
-            font-size: clamp(10px, 2.5vw, 12px);
+            font-size: clamp(9px, 2.5vw, 12px);
             color: #8e8e8e;
-            margin-bottom: 5px;
+            margin-bottom: clamp(3px, 1vw, 5px);
+            white-space: nowrap;
         }
         .info-item span {
-            font-size: clamp(12px, 3vw, 14px);
+            font-size: clamp(11px, 3vw, 14px);
             font-weight: 600;
             color: #262626;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .download-btn {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             color: white;
-            font-size: clamp(16px, 4vw, 18px);
+            font-size: clamp(14px, 4vw, 18px);
             font-weight: 700;
-            padding: 14px;
+            padding: clamp(12px, 3.5vw, 14px);
             width: 100%;
-            border-radius: 12px;
+            border-radius: clamp(10px, 2.5vw, 12px);
             cursor: pointer;
             transition: all 0.3s ease;
             border: none;
-            margin: 15px 0;
+            margin: clamp(12px, 3vw, 15px) 0;
             position: relative;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(188, 24, 136, 0.3);
@@ -137,7 +157,7 @@
         .download-btn::after {
             content: '→';
             position: absolute;
-            right: 20px;
+            right: clamp(15px, 4vw, 20px);
             top: 50%;
             transform: translateY(-50%);
             opacity: 0;
@@ -145,11 +165,11 @@
         }
         .download-btn:hover::after {
             opacity: 1;
-            right: 15px;
+            right: clamp(12px, 3vw, 15px);
         }
         .sub-buttons {
             display: none;
-            margin: 10px 0;
+            margin: clamp(8px, 2vw, 10px) 0;
             animation: fadeIn 0.4s ease-out;
         }
         @keyframes fadeIn {
@@ -159,19 +179,19 @@
         .sub-buttons button {
             background: linear-gradient(45deg, #f5f7fa, #e4e8f0);
             color: #262626;
-            font-size: clamp(14px, 3.5vw, 15px);
+            font-size: clamp(12px, 3.5vw, 15px);
             font-weight: 600;
-            padding: 12px;
-            margin: 8px 0;
+            padding: clamp(10px, 2.5vw, 12px);
+            margin: clamp(6px, 1.5vw, 8px) 0;
             border: none;
-            border-radius: 10px;
+            border-radius: clamp(8px, 2vw, 10px);
             cursor: pointer;
             width: 100%;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: clamp(6px, 1.5vw, 8px);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
         }
         .sub-buttons button:hover {
@@ -180,53 +200,78 @@
         }
         .sub-buttons button::before {
             content: '⬇';
-            font-size: 14px;
+            font-size: clamp(12px, 3vw, 14px);
         }
         .screenshots {
             display: flex;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
             overflow-x: auto;
-            padding: 15px 0;
-            scrollbar-width: none;
+            padding: clamp(12px, 3vw, 15px) 0;
+            scrollbar-width: thin;
+            scrollbar-color: #dc2743 #f5f5f5;
             -webkit-overflow-scrolling: touch;
         }
         .screenshots::-webkit-scrollbar {
-            display: none;
+            height: 6px;
+        }
+        .screenshots::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        .screenshots::-webkit-scrollbar-thumb {
+            background-color: #dc2743;
+            border-radius: 10px;
         }
         .screenshots img {
-            width: 150px;
+            width: clamp(100px, 30vw, 150px);
             height: auto;
-            border-radius: 12px;
+            border-radius: clamp(8px, 2.5vw, 12px);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             cursor: pointer;
             flex-shrink: 0;
         }
+        .screenshots img:hover {
+            transform: scale(1.08);
+        }
         .features {
             text-align: left;
-            margin-top: 15px;
-            padding: 15px;
+            margin-top: clamp(12px, 3vw, 15px);
+            padding: clamp(12px, 3vw, 15px);
             background: rgba(245, 245, 245, 0.7);
-            border-radius: 12px;
+            border-radius: clamp(8px, 2.5vw, 12px);
+            overflow-y: auto;
+            max-height: 300px;
+        }
+        .features::-webkit-scrollbar {
+            width: 6px;
+        }
+        .features::-webkit-scrollbar-track {
+            background: #f5f5f5;
+            border-radius: 10px;
+        }
+        .features::-webkit-scrollbar-thumb {
+            background-color: #dc2743;
+            border-radius: 10px;
         }
         .features h3 {
-            font-size: clamp(16px, 4vw, 18px);
-            margin-bottom: 12px;
+            font-size: clamp(14px, 4vw, 18px);
+            margin-bottom: clamp(8px, 2vw, 12px);
             color: #262626;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(6px, 1.5vw, 8px);
         }
         .features h3::before {
             content: '✨';
         }
         .features p {
-            padding: 6px 0;
-            font-size: clamp(13px, 3vw, 14px);
+            padding: clamp(4px, 1.5vw, 6px) 0;
+            font-size: clamp(12px, 3vw, 14px);
             color: #262626;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(6px, 1.5vw, 8px);
         }
         .features p::before {
             content: '✔';
@@ -236,10 +281,10 @@
 
         /* Enhanced Footer Styles */
         footer {
-            margin-top: 20px;
-            padding: 15px 0;
+            margin-top: clamp(15px, 4vw, 20px);
+            padding: clamp(12px, 3vw, 15px) 0;
             color: #8e8e8e;
-            font-size: clamp(11px, 2.5vw, 12px);
+            font-size: clamp(10px, 2.5vw, 12px);
             text-align: center;
             width: 100%;
             max-width: 500px;
@@ -250,9 +295,9 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: clamp(10px, 3vw, 15px);
-            margin-bottom: 10px;
-            padding: 0 10px;
+            gap: clamp(8px, 2.5vw, 15px);
+            margin-bottom: clamp(8px, 2vw, 10px);
+            padding: 0 clamp(5px, 2vw, 10px);
         }
         .footer-links a {
             color: #8e8e8e;
@@ -265,23 +310,23 @@
             color: #dc2743;
         }
         .copyright {
-            margin-top: 10px;
-            font-size: clamp(10px, 2.5vw, 11px);
+            margin-top: clamp(8px, 2vw, 10px);
+            font-size: clamp(9px, 2.5vw, 11px);
             line-height: 1.4;
-            padding: 0 10px;
+            padding: 0 clamp(5px, 2vw, 10px);
         }
         .social-icons {
             display: flex;
             justify-content: center;
-            gap: clamp(10px, 3vw, 15px);
-            margin-top: 15px;
+            gap: clamp(8px, 2.5vw, 15px);
+            margin-top: clamp(12px, 3vw, 15px);
             flex-wrap: wrap;
         }
         .social-icons a {
             color: white;
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743);
-            width: clamp(28px, 7vw, 32px);
-            height: clamp(28px, 7vw, 32px);
+            width: clamp(26px, 7vw, 32px);
+            height: clamp(26px, 7vw, 32px);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -289,94 +334,35 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 3px 10px rgba(220, 39, 67, 0.2);
-            font-size: clamp(12px, 3vw, 14px);
+            font-size: clamp(11px, 3vw, 14px);
         }
         .social-icons a:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(220, 39, 67, 0.3);
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .container {
-                padding: 20px 15px;
-                border-radius: 15px;
-            }
-            .header {
-                gap: 12px;
-                margin-bottom: 15px;
-            }
-            .header img {
-                width: 50px;
-                height: 50px;
-            }
-            .info {
-                gap: 8px;
-            }
-            .info-item {
-                padding: 8px;
-            }
-            .screenshots img {
-                width: 130px;
-            }
+        /* Custom scrollbar for the whole page */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#f09433, #dc2743);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(#dc2743, #bc1888);
         }
 
-        @media (max-width: 400px) {
-            body {
-                padding: 10px;
-            }
-            .container {
-                padding: 15px 10px;
-                border-radius: 12px;
-            }
-            .header {
-                gap: 10px;
-            }
-            .header img {
-                width: 45px;
-                height: 45px;
-            }
-            .info {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .download-btn {
-                padding: 12px;
-                margin: 10px 0;
-            }
-            .screenshots img {
-                width: 110px;
-            }
-        }
-
-        @media (max-width: 350px) {
-            .info {
-                grid-template-columns: 1fr;
-            }
-            .footer-links {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .screenshots img {
-                width: 100px;
-            }
-        }
-
-        /* Extra small devices (phones, 320px and below) */
+        /* Special cases for very small devices */
         @media (max-width: 320px) {
-            .container {
-                padding: 12px 8px;
+            .info {
+                grid-template-columns: 1fr 1fr;
             }
-            .header img {
-                width: 40px;
-                height: 40px;
-            }
-            .screenshots img {
-                width: 90px;
-            }
-            .social-icons a {
-                width: 26px;
-                height: 26px;
-                font-size: 12px;
+            .header-text h1, .header-text small {
+                white-space: normal;
             }
         }
     </style>
@@ -439,6 +425,16 @@
             <p>Download Photos/Videos/Stories</p>
             <p>No Ads Experience</p>
             <p>Advanced Privacy Controls</p>
+            <p>Story Stealth Mode</p>
+            <p>Zoomable Profile Pictures</p>
+            <p>Copy Bio Text</p>
+            <p>Save IGTV Videos</p>
+            <p>Disable Read Receipts</p>
+            <p>High Quality Image Uploads</p>
+            <p>Multiple Account Support</p>
+            <p>Custom Theme Options</p>
+            <p>Video Playback Controls</p>
+            <p>Direct Message Saving</p>
         </div>
     </div>
 
@@ -457,7 +453,7 @@
         </div>
         <div class="copyright">
             © 2024 SkMods. All rights reserved.<br>
-            Instagram is a trademark of Meta Platforms, Inc.
+            InstaMax is a enhanced version of Meta Platforms, Inc.
         </div>
     </footer>
 
